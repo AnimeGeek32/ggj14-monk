@@ -13,6 +13,7 @@ public class AnimalController : MonoBehaviour {
 	public float speed = 30.0f;
 	public float maxSpeed = 5f;
 	public float jumpPower = 500f;
+	public bool fallDeath = true;
 	public AnimalType animalType = AnimalType.TYPE_NONE;
 
 	// Use this for initialization
