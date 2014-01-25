@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour {
 	public GameObject interactableObject;
 	public AnimalType animalType = AnimalType.TYPE_NONE;
 	public Transform groundTransform;
-	private bool isGrounded = false;
+	public bool isGrounded = false;
 	private bool hasJumped = false;
 	private bool fallDeath = true;
 
@@ -70,6 +70,10 @@ public class PlayerController : MonoBehaviour {
 		}
 		else if(animalType == AnimalType.TYPE_BIRD)
 		{
+		}
+		else if(animalType == AnimalType.TYPE_RABBIT)
+		{
+			Jump();
 		}
 	}
 
