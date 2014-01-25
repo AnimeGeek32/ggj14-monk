@@ -66,6 +66,11 @@ public class PlatformPlayerController : MonoBehaviour {
 		{
 			livingObjectToInteractWith = other.gameObject;
 		}
+		if(other.name == "deathground")
+		{
+			print ("you dead");
+		}
+
 	}
 
 	void OnTriggerExit2D(Collider2D other)
@@ -75,6 +80,7 @@ public class PlatformPlayerController : MonoBehaviour {
 			livingObjectToInteractWith = null;
 		}
 	}
+	
 
 	public void Jump()
 	{
