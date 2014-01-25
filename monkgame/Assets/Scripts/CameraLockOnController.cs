@@ -32,12 +32,12 @@ public class CameraLockOnController : MonoBehaviour {
 			// Check input
 			if(Input.GetMouseButtonDown(0))
 			{
-				Debug.Log("Mouse down.");
+				//Debug.Log("Mouse down.");
 				Vector2 mouseToWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 				RaycastHit2D hit = Physics2D.Raycast(mouseToWorldPosition, Vector2.zero, Mathf.Infinity, 1 << LayerMask.NameToLayer("CameraLockOnTargets"));
 				if(hit.collider != null)
 				{
-					Debug.Log("Mouse hits target: " + hit.collider.name);
+					//Debug.Log("Mouse hits target: " + hit.collider.name);
 					targetObject = hit.collider.gameObject;
 					StartCoroutine("SwitchCameraTargets", switchingTime);
 				}
