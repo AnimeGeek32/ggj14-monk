@@ -8,7 +8,9 @@ public class GameManager {
 	public AnimalType animalType;
 	public int exitPointID;
 	public float monkSpeed;
+	public float monkMaxSpeed;
 	public float monkJumpPower;
+	public bool monkFallDeath;
 
 	public GameManager()
 	{
@@ -23,6 +25,7 @@ public class GameManager {
 			exitPointID = 0;
 			monkSpeed = 30.0f;
 			monkJumpPower = 500f;
+			monkFallDeath = true;
 		}
 		
 		instance = this;
@@ -47,5 +50,6 @@ public class GameManager {
 		exitPointID = 0;
 		monkSpeed = 30.0f;
 		monkJumpPower = 500f;
+		monkFallDeath = true;
 	}
 }
