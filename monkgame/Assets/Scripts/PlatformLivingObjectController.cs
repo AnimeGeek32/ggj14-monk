@@ -2,10 +2,12 @@
 using System.Collections;
 
 public class PlatformLivingObjectController : MonoBehaviour {
+	
 	public enum LivingObjectType {
 		TYPE_RABBIT,
 		TYPE_CAT,
-		TYPE_FISH
+		TYPE_FISH,
+		TYPE_BIRD
 	}
 
 	public LivingObjectType livingObjectType;
@@ -26,6 +28,10 @@ public class PlatformLivingObjectController : MonoBehaviour {
 		{
 			PlatformPlayerController playerController = borrower.GetComponent<PlatformPlayerController>();
 			playerController.Jump();
+		}
+		else if(livingObjectType == LivingObjectType.TYPE_BIRD)
+		{
+			Debug.Log ("Monk flies away!");
 		}
 	}
 }
