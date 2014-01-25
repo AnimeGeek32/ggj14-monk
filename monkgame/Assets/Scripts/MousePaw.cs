@@ -14,6 +14,7 @@ public class MousePaw : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
+		Screen.showCursor = false;
 		/*Instantiate (mouseObject, (new Vector3(LEFT, TOP, 0)), Quaternion.identity);
 		Instantiate (mouseObject, (new Vector3(LEFT, BOTTOM, 0)), Quaternion.identity);
 		Instantiate (mouseObject, (new Vector3(RIGHT, TOP, 0)), Quaternion.identity);
