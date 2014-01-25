@@ -31,7 +31,6 @@ public class Mouse : MonoBehaviour
 	void OnMouseDown ()
 	{
 		if (Input.GetMouseButtonDown (0)) {
-			audio.Play();
 			Camera.main.audio.PlayOneShot(squeekSound);
 			Destroy (particle);
 		}
