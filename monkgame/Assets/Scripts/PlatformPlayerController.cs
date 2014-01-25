@@ -6,6 +6,8 @@ public class PlatformPlayerController : MonoBehaviour {
 	public float maxSpeed = 5f;
 	public float jumpPower = 1000.0f;
 	public Transform groundTransform;
+	public GameObject livingObjectToInteractWith;
+	public GameObject livingObjectToUsePower;
 
 	private bool isGrounded = false;
 	private bool hasJumped = false;
@@ -18,10 +20,22 @@ public class PlatformPlayerController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		isGrounded = Physics2D.Linecast (transform.position, groundTransform.position, 1 << LayerMask.NameToLayer("Ground"));
+
+		if(Input.GetAxis("Vertical") > 0)
+		{
+			if(livingObjectToInteractWith != null)
+			{
+				livingObjectToUsePower = livingObjectToInteractWith;
+			}
+		}
+
 		if(Input.GetButtonDown("Jump"))
 		{
-			if(isGrounded)
-				hasJumped = true;
+			if(livingObjectToUsePower != null)
+			{
+				PlatformLivingObjectController livingObjectController = livingObjectToUsePower.GetComponent<PlatformLivingObjectController>();
+				livingObjectController.UseBorrowedPower(gameObject);
+			}
 		}
 	}
 
@@ -44,5 +58,27 @@ public class PlatformPlayerController : MonoBehaviour {
 			rigidbody2D.AddForce(new Vector2(0, jumpPower));
 			hasJumped = false;
 		}
+	}
+
+	void OnTriggerEnter2D(Collider2D other)
+	{
+		if(other.tag == "LivingObject")
+		{
+			livingObjectToInteractWith = other.gameObject;
+		}
+	}
+
+	void OnTriggerExit2D(Collider2D other)
+	{
+		if(other.tag == "LivingObject")
+		{
+			livingObjectToInteractWith = null;
+		}
+	}
+
+	public void Jump()
+	{
+		if(isGrounded)
+			hasJumped = true;
 	}
 }
