@@ -4,7 +4,7 @@ using System.Collections;
 public class Mouse : MonoBehaviour
 {
 	public GameObject particle;
-	private Vector3 StartPoint { get; set; }
+	private Vector2 StartPoint { get; set; }
 	public Vector2 EndPoint { get; set; }
 	public float Speed { get; set; }
 	private float timer;
@@ -12,6 +12,9 @@ public class Mouse : MonoBehaviour
 	// Use this for initialization
 	void Start () {
 		StartPoint = particle.transform.position;
+		Vector2 dif = EndPoint - StartPoint;
+		particle.transform.Rotate (Vector3.forward * (180.0f / Mathf.PI) * Mathf.Atan2(dif.y, dif.x));
+
 	}
 	
 	// Update is called once per frame
