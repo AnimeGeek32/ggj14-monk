@@ -18,13 +18,13 @@ public class moveBasket : MonoBehaviour {
 		timer += Time.deltaTime;
 
 		if(timer >=3){
-			rand = Random.Range(-100,100);
+			rand = Random.Range(-50,25);
 			timer = 0;
 		}
 			//float rand = 
 			Vector3 targetPosition = new Vector3 (rand, transform.position.y, 0);
 			//transform.Translate(Random.Range (-100,100)*Time.deltaTime,0,0);
-			transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * smoothFactor);
+			transform.position = Vector2.Lerp(transform.position, targetPosition, Time.deltaTime * smoothFactor);
 	
 	}
 }
