@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
     private float fallDeathTime = 0;
     private float originalGravityScale;
 	private bool facingRight = true;
+	public bool gonnaDie;
 
 	public Sprite monk;
 
@@ -113,7 +114,8 @@ public class PlayerController : MonoBehaviour
                     fallDeathTime += Time.deltaTime;
                     if (fallDeathTime >= FallDeathTime && fallDeath != false)
                     {
-                        DeathAction();
+                        //DeathAction();
+						gonnaDie = true;
                     }
                 }
                 else
@@ -196,6 +198,7 @@ public class PlayerController : MonoBehaviour
         if (animalType == AnimalType.TYPE_NONE)
         {
             // Nothing at all
+			Jump ();
         }
         else if (animalType == AnimalType.TYPE_CAT)
         {
@@ -211,6 +214,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (animalType == AnimalType.TYPE_BEAR)
         {
+			Jump ();
         }
         else if (animalType == AnimalType.TYPE_RABBIT)
         {
@@ -262,11 +266,7 @@ public class PlayerController : MonoBehaviour
         {
             interactableObject = other.gameObject;
         }
-
-        if (other.name == "deathground" && fallDeath == true)
-        {
-            DeathAction();
-        }
+		
 
 		if (other.name == "crusher")
 		{
@@ -274,7 +274,14 @@ public class PlayerController : MonoBehaviour
 		}
     }
 
-   public void DeathAction()
+	void OnCollisionEnter2D(Collision2D coll) {
+		if (coll.gameObject.tag == "ground" && fallDeath == true && gonnaDie == true)
+		{
+			DeathAction();
+		}
+	}
+	
+	public void DeathAction()
     {
 		Application.LoadLevel (Application.loadedLevelName);
     }
