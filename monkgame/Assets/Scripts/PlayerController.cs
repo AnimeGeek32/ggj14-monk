@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     public bool isGroundedL = false;
     public bool isGroundedR = false;
     private bool hasJumped = false;
-    private bool fallDeath = true;
+    public bool fallDeath = true;
 	public float orthoAdj;
     private float scaler;
 	public Camera MainCam;
@@ -107,12 +107,15 @@ public class PlayerController : MonoBehaviour
             isGroundedL = Physics2D.Linecast(transform.position, groundTransforml.position, 1 << LayerMask.NameToLayer("Ground"));
             isGroundedR = Physics2D.Linecast(transform.position, groundTransformr.position, 1 << LayerMask.NameToLayer("Ground"));
 
+			if(isGroundedL || isGroundedR)
+				fallDeathTime = 0;
+
             if (!isGroundedL && !isGroundedR)
             {
                 if (previousY - transform.position.y >= 0)
                 {
                     fallDeathTime += Time.deltaTime;
-                    if (fallDeathTime >= FallDeathTime && fallDeath != false)
+                    if (fallDeathTime >= FallDeathTime && fallDeath == true)
                     {
                         //DeathAction();
 						gonnaDie = true;
@@ -300,5 +303,9 @@ public class PlayerController : MonoBehaviour
         {
             interactableObject = null;
         }
+		if (other.tag == "water")
+		{
+			print ("outta da water");
+		}
     }
 }
