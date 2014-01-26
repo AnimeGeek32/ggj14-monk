@@ -13,6 +13,7 @@ public class AnyKeySceneTransitionController : MonoBehaviour {
 	void Update () {
 		if(Input.anyKey)
 		{
+			GameManager.Instance.Reset();
 			Application.LoadLevel(destinationScene);
 		}
 	}

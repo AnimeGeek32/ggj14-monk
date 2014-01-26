@@ -15,7 +15,10 @@ class DoorController : MonoBehaviour {
 	
 	void OnTriggerEnter2D(Collider2D other)
 	{
-		GameManager.Instance.exitPointID = exitPointId;
-		Application.LoadLevel (sceneName);
+		if(other.tag == "Player")
+		{
+			GameManager.Instance.exitPointID = exitPointId;
+			Application.LoadLevel (sceneName);
+		}
 	}
 }
