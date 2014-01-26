@@ -240,6 +240,13 @@ public class PlayerController : MonoBehaviour
 			BoxCollider2D monkBox = (BoxCollider2D)GetComponent<BoxCollider2D>();
 			monkBox.size = interactableObject.GetComponent<BoxCollider2D>().size;
 			MainCam.orthographicSize = interactableObject.GetComponent<AnimalController>().orthoAdj;
+			if(!facingRight)
+			{
+				Vector3 flipScale = transform.localScale;
+				flipScale.x = -1 * transform.localScale.x;
+				transform.localScale = flipScale;
+				facingRight = true;
+			}
         }
     }
 

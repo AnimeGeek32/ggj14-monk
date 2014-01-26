@@ -12,6 +12,7 @@ public enum AnimalType {
 
 public class AnimalController : MonoBehaviour {
 	//for all
+	public bool facingRight = true;
 	public float speed = 30.0f;
 	public float maxSpeed = 5f;
 	public float jumpPower = 500f;
