@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
     public float speed = 30f;
     public float maxSpeed = 5f;
     public float jumpPower = 100f;
+	public float Strength;
     public GameObject interactableObject;
     public AnimalType animalType = AnimalType.TYPE_NONE;
     public Transform groundTransforml;

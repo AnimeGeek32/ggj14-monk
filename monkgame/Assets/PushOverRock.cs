@@ -9,7 +9,7 @@ public class PushOverRock : MonoBehaviour {
     {
         if (StrengthRequirement != null && other.CompareTag("Player"))
         {
-            if (PlayerController.Current.Strength) // need to add public strength to player
+            if (PlayerController.Current.Strength > StrengthRequirement) // need to add public strength to player
             {
                 gameObject.rigidbody2D.AddForce(new Vector2(4f, 4f));
             }
