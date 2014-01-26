@@ -19,10 +19,12 @@ public class PlayerController : MonoBehaviour {
 	public GameObject rabbit;
 	public GameObject cat;
 	public GameObject bear;
+	private Vector3 monkOriginScale;
 
 
 	// Use this for initialization
 	void Start () {
+		monkOriginScale = transform.localScale;
 	
 	}
 	
@@ -58,7 +60,14 @@ public class PlayerController : MonoBehaviour {
 				Interact();
 			
 		}
+		if(Input.GetButtonDown("bear")){
+			interactableObject = bear;
+			if(animalType != interactableObject.GetComponent<AnimalController>().animalType)
+				Interact();
+			
+		}
 
+		
 
 
 		isGroundedL = Physics2D.Linecast (transform.position, groundTransforml.position, 1 << LayerMask.NameToLayer("Ground"));
@@ -114,7 +123,7 @@ public class PlayerController : MonoBehaviour {
 		{
 			Jump();
 		}
-		else if(animalType == AnimalType.TYPE_BIRD)
+		else if(animalType == AnimalType.TYPE_BEAR)
 		{
 		}
 		else if(animalType == AnimalType.TYPE_RABBIT)
@@ -139,7 +148,8 @@ public class PlayerController : MonoBehaviour {
 			maxSpeed = interactableObject.GetComponent<AnimalController>().maxSpeed;
 			jumpPower = interactableObject.GetComponent<AnimalController>().jumpPower;
 			scaler = interactableObject.GetComponent<AnimalController>().scaler;
-			transform.localScale -= new Vector3(scaler, scaler, 0);
+			Vector3 scaleChange = new Vector3(scaler, scaler, 0);
+			transform.localScale = Vector3.Lerp(transform.localScale, scaleChange, 2);
 		}
 	}
 

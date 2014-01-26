@@ -5,7 +5,7 @@ public enum AnimalType {
 	TYPE_NONE,
 	TYPE_CAT,
 	TYPE_MOUSE,
-	TYPE_BIRD,
+	TYPE_BEAR,
 	TYPE_FISH,
 	TYPE_RABBIT
 }
@@ -21,7 +21,7 @@ public class AnimalController : MonoBehaviour {
 	// for mouse we need a scale set to make monk smaller
 	public float scaler;
 	// for fish we need a waterdeath bool
-
+	public float strength;
 
 
 	public AnimalType animalType = AnimalType.TYPE_NONE;
