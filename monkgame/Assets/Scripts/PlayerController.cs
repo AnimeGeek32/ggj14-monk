@@ -229,9 +229,14 @@ public class PlayerController : MonoBehaviour
         {
             DeathAction();
         }
+
+		if (other.name == "crusher")
+		{
+			DeathAction();
+		}
     }
 
-    void DeathAction()
+   public void DeathAction()
     {
         print("you dead");
     }
