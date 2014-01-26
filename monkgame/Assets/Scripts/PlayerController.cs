@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     private bool fallDeath = true;
 	public float orthoAdj;
     private float scaler;
-	public GameObject MainCam;
+	public Camera MainCam;
     public GameObject mouse;
     public GameObject fish;
     public GameObject rabbit;
@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
     public float FallDeathTime = 1.2f;
     private float fallDeathTime = 0;
     private float originalGravityScale;
+	private bool facingRight = true;
 
 	public Sprite monk;
 
@@ -40,6 +41,7 @@ public class PlayerController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+		MainCam = Camera.main;
 		GetComponent <SpriteRenderer>().sprite = monk;
         monkOriginScale = transform.localScale;
         fallDeathTime = 0;
@@ -141,6 +143,25 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         float h = Input.GetAxis("Horizontal");
+		Vector3 flipScale = transform.localScale;
+		if(h < 0)
+		{
+			if(facingRight)
+			{
+				flipScale.x = -1 * transform.localScale.x;
+				facingRight = false;
+			}
+		}
+		else if(h > 0)
+		{
+			if(!facingRight)
+			{
+				flipScale.x = -1 * transform.localScale.x;
+				facingRight = true;
+			}
+		}
+		transform.localScale = flipScale;
+			
         if (!InWater)
         {
             if (animalType != AnimalType.TYPE_FISH)
@@ -218,6 +239,7 @@ public class PlayerController : MonoBehaviour
 			GetComponent<SpriteRenderer>().sprite = interactableObject.GetComponent<SpriteRenderer>().sprite;
 			BoxCollider2D monkBox = (BoxCollider2D)GetComponent<BoxCollider2D>();
 			monkBox.size = interactableObject.GetComponent<BoxCollider2D>().size;
+			MainCam.orthographicSize = interactableObject.GetComponent<AnimalController>().orthoAdj;
         }
     }
 
