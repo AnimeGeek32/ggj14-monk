@@ -8,8 +8,11 @@ public class playerCameraControl : MonoBehaviour {
 	void Start () {
 		Vector3 newPosition = transform.position;
 		targetObject = GameObject.FindGameObjectWithTag("Player");
-		newPosition.x = targetObject.transform.position.x;
-		newPosition.y = targetObject.transform.position.y;
+		if(targetObject != null)
+		{
+			newPosition.x = targetObject.transform.position.x;
+			newPosition.y = targetObject.transform.position.y;
+		}
 		transform.position = newPosition;
 	}
 	
@@ -21,6 +24,10 @@ public class playerCameraControl : MonoBehaviour {
 			newPosition.x = targetObject.transform.position.x;
 			newPosition.y = targetObject.transform.position.y;
 			transform.position = newPosition;
+		}
+		else
+		{
+			targetObject = GameObject.FindGameObjectWithTag("Player");
 		}
 	}
 }

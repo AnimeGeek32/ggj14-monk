@@ -103,7 +103,6 @@ public class PlayerController : MonoBehaviour
 
         if (!InWater)
         {
-            gameObject.rigidbody2D.gravityScale = originalGravityScale;
             isGroundedL = Physics2D.Linecast(transform.position, groundTransforml.position, 1 << LayerMask.NameToLayer("Ground"));
             isGroundedR = Physics2D.Linecast(transform.position, groundTransformr.position, 1 << LayerMask.NameToLayer("Ground"));
 
@@ -127,10 +126,6 @@ public class PlayerController : MonoBehaviour
                 }
             }
             previousY = transform.position.y;
-        }
-        else
-        {
-            gameObject.rigidbody2D.gravityScale = 0.001f;
         }
 
         if (Input.GetButtonDown("Jump"))
@@ -270,19 +265,23 @@ public class PlayerController : MonoBehaviour
         rigidbody2D.AddForce(new Vector2(jumpPower, jumpPower * 2.5f));
     }
 
-
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "LivingObject")
+        if (other.CompareTag("water"))
         {
-            interactableObject = other.gameObject;
+            gameObject.rigidbody2D.gravityScale = 0.001f;
+            InWater = true;
         }
-		
-
-		if (other.name == "crusher")
-		{
-			DeathAction();
-		}
+        else if (other.CompareTag("notInWater") && InWater)
+        {
+            gameObject.rigidbody2D.gravityScale = originalGravityScale;
+            WaterJump();
+            InWater = false;
+        }
+        else if (other.name == "crusher")
+        {
+            DeathAction();
+        }
     }
 
 	void OnCollisionEnter2D(Collision2D coll) {
@@ -297,15 +296,5 @@ public class PlayerController : MonoBehaviour
 		Application.LoadLevel (Application.loadedLevelName);
     }
 
-    void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.tag == "LivingObject")
-        {
-            interactableObject = null;
-        }
-		if (other.tag == "water")
-		{
-			print ("outta da water");
-		}
-    }
+
 }
