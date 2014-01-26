@@ -244,6 +244,14 @@ public class PlayerController : MonoBehaviour
 			BoxCollider2D monkBox = (BoxCollider2D)GetComponent<BoxCollider2D>();
 			monkBox.size = interactableObject.GetComponent<BoxCollider2D>().size;
 			MainCam.orthographicSize = interactableObject.GetComponent<AnimalController>().orthoAdj;
+			if(interactableObject.GetComponent<AnimalController>().offset != 0){
+				foreach (Transform child in transform)
+				{
+					float offsetY = child.transform.position.y - interactableObject.GetComponent<AnimalController>().offset;
+					//child is your child transform
+					child.position = new Vector3(child.transform.position.x, offsetY,0);
+				}
+			}
 			if(!facingRight)
 			{
 				Vector3 flipScale = transform.localScale;
