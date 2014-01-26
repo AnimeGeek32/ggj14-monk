@@ -19,7 +19,7 @@ public class AnimalController : MonoBehaviour {
 	//FOR CAT
 	public bool fallDeath = true;
 	// for mouse we need a scale set to make monk smaller
-
+	public float scaler;
 	// for fish we need a waterdeath bool
 
 

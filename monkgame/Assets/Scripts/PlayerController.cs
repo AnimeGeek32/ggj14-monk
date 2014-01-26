@@ -7,10 +7,19 @@ public class PlayerController : MonoBehaviour {
 	public float jumpPower = 100f;
 	public GameObject interactableObject;
 	public AnimalType animalType = AnimalType.TYPE_NONE;
-	public Transform groundTransform;
-	public bool isGrounded = false;
+	public Transform groundTransforml;
+	public Transform groundTransformr;
+	public bool isGroundedL = false;
+	public bool isGroundedR = false;
 	private bool hasJumped = false;
 	private bool fallDeath = true;
+	private float scaler;
+	public GameObject mouse;
+	public GameObject fish;
+	public GameObject rabbit;
+	public GameObject cat;
+	public GameObject bear;
+
 
 	// Use this for initialization
 	void Start () {
@@ -19,17 +28,52 @@ public class PlayerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		isGrounded = Physics2D.Linecast (transform.position, groundTransform.position, 1 << LayerMask.NameToLayer("Ground"));
+		/* Animal selection inputs
+		 * 
+		 * 
+		 * */
+		if(Input.GetButtonDown("mouse")){
+			interactableObject = mouse;
+			if(animalType != interactableObject.GetComponent<AnimalController>().animalType)
+				Interact();
+
+		}
+
+		if(Input.GetButtonDown("fish")){
+			interactableObject = fish;
+			if(animalType != interactableObject.GetComponent<AnimalController>().animalType)
+				Interact();
+			
+		}
+
+		if(Input.GetButtonDown("rabbit")){
+			interactableObject = rabbit;
+			if(animalType != interactableObject.GetComponent<AnimalController>().animalType)
+				Interact();
+			
+		}
+		if(Input.GetButtonDown("cat")){
+			interactableObject = cat;
+			if(animalType != interactableObject.GetComponent<AnimalController>().animalType)
+				Interact();
+			
+		}
+
+
+
+		isGroundedL = Physics2D.Linecast (transform.position, groundTransforml.position, 1 << LayerMask.NameToLayer("Ground"));
+		isGroundedR = Physics2D.Linecast (transform.position, groundTransformr.position, 1 << LayerMask.NameToLayer("Ground"));
 
 		if(Input.GetButtonDown("Jump"))
 		{
 			UsePower ();
 		}
-
+		/*
 		if(Input.GetAxis("Vertical") > 0)
 		{
 			Interact();
 		}
+		*/
 	}
 
 	void FixedUpdate(){
@@ -45,7 +89,7 @@ public class PlayerController : MonoBehaviour {
 			// ... set the player's velocity to the maxSpeed in the x axis.
 			rigidbody2D.velocity = new Vector2(Mathf.Sign(rigidbody2D.velocity.x) * maxSpeed, rigidbody2D.velocity.y);
 
-		if(hasJumped && isGrounded)
+		if(hasJumped && (isGroundedL || isGroundedR))
 		{
 			rigidbody2D.AddForce(new Vector2(0, jumpPower));
 			hasJumped = false;
@@ -64,9 +108,11 @@ public class PlayerController : MonoBehaviour {
 		}
 		else if(animalType == AnimalType.TYPE_MOUSE)
 		{
+			Jump();
 		}
 		else if(animalType == AnimalType.TYPE_FISH)
 		{
+			Jump();
 		}
 		else if(animalType == AnimalType.TYPE_BIRD)
 		{
@@ -79,7 +125,7 @@ public class PlayerController : MonoBehaviour {
 
 	public void Jump()
 	{
-		if(isGrounded)
+		if(isGroundedL || isGroundedR)
 			hasJumped = true;
 	}
 
@@ -92,8 +138,13 @@ public class PlayerController : MonoBehaviour {
 			speed = interactableObject.GetComponent<AnimalController>().speed;
 			maxSpeed = interactableObject.GetComponent<AnimalController>().maxSpeed;
 			jumpPower = interactableObject.GetComponent<AnimalController>().jumpPower;
+			scaler = interactableObject.GetComponent<AnimalController>().scaler;
+			transform.localScale -= new Vector3(scaler, scaler, 0);
 		}
 	}
+
+
+
 
 	void OnTriggerEnter2D(Collider2D other)
 	{
