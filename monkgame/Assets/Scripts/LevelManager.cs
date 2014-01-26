@@ -3,7 +3,7 @@ using System.Collections;
 
 public class LevelManager : MonoBehaviour {
 	public Transform[] exitPoints;
-	public AudioClip backgroundMusic;
+	//public AudioClip backgroundMusic;
 	public GameObject playerObject;
 
 	// Use this for initialization
