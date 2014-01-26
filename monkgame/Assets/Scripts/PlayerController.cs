@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
 	private GameObject currentAnimal;
     private Vector3 monkOriginScale;
     private float previousY;
-    public float FallDeathTime = 1.2f;
+    public float FallDeathTime = 1.5f;
     private float fallDeathTime = 0;
     private float originalGravityScale;
 	private bool facingRight = true;
@@ -257,7 +257,6 @@ public class PlayerController : MonoBehaviour
 				Vector3 flipScale = transform.localScale;
 				flipScale.x = -1 * transform.localScale.x;
 				transform.localScale = flipScale;
-				facingRight = true;
 			}
         }
     }
