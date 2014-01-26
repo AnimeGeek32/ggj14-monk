@@ -278,7 +278,7 @@ public class PlayerController : MonoBehaviour
             WaterJump();
             InWater = false;
         }
-        else if (other.name == "crusher")
+        else if (other.name == "crusher" || other.name == "deathGround")
         {
             DeathAction();
         }
