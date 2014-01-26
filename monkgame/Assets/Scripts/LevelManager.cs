@@ -9,10 +9,10 @@ public class LevelManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		GameObject playerInstance = (GameObject)Instantiate(playerObject, exitPoints[GameManager.Instance.exitPointID].position, Quaternion.identity);
-		PlayerController currentPlayerController = playerInstance.GetComponent<PlayerController>();
-		currentPlayerController.animalType = GameManager.Instance.animalType;
-		currentPlayerController.speed = GameManager.Instance.monkSpeed;
-		currentPlayerController.jumpPower = GameManager.Instance.monkJumpPower;
+		//PlayerController currentPlayerController = playerInstance.GetComponent<PlayerController>();
+		//currentPlayerController.animalType = GameManager.Instance.animalType;
+		//currentPlayerController.speed = GameManager.Instance.monkSpeed;
+		//currentPlayerController.jumpPower = GameManager.Instance.monkJumpPower;
 	}
 	
 	// Update is called once per frame
