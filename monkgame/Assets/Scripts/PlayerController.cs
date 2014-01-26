@@ -15,17 +15,22 @@ public class PlayerController : MonoBehaviour
     public bool isGroundedR = false;
     private bool hasJumped = false;
     private bool fallDeath = true;
+	public float orthoAdj;
     private float scaler;
+	public GameObject MainCam;
     public GameObject mouse;
     public GameObject fish;
     public GameObject rabbit;
     public GameObject cat;
     public GameObject bear;
+	private GameObject currentAnimal;
     private Vector3 monkOriginScale;
     private float previousY;
     public float FallDeathTime = 1.2f;
     private float fallDeathTime = 0;
     private float originalGravityScale;
+
+	public Sprite monk;
 
 
     public bool InWater = false;
@@ -35,6 +40,7 @@ public class PlayerController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+		GetComponent <SpriteRenderer>().sprite = monk;
         monkOriginScale = transform.localScale;
         fallDeathTime = 0;
         originalGravityScale = gameObject.rigidbody2D.gravityScale;
@@ -103,7 +109,7 @@ public class PlayerController : MonoBehaviour
                 if (previousY - transform.position.y >= 0)
                 {
                     fallDeathTime += Time.deltaTime;
-                    if (fallDeathTime >= FallDeathTime)
+                    if (fallDeathTime >= FallDeathTime && fallDeath != false)
                     {
                         DeathAction();
                     }
@@ -201,7 +207,7 @@ public class PlayerController : MonoBehaviour
     {
         if (interactableObject != null)
         {
-            animalType = interactableObject.GetComponent<AnimalController>().animalType;
+           animalType = interactableObject.GetComponent<AnimalController>().animalType;
             fallDeath = interactableObject.GetComponent<AnimalController>().fallDeath;
             speed = interactableObject.GetComponent<AnimalController>().speed;
             maxSpeed = interactableObject.GetComponent<AnimalController>().maxSpeed;
@@ -209,6 +215,9 @@ public class PlayerController : MonoBehaviour
             scaler = interactableObject.GetComponent<AnimalController>().scaler;
             Vector3 scaleChange = new Vector3(scaler, scaler, 0);
             transform.localScale = Vector3.Lerp(transform.localScale, scaleChange, 2);
+			GetComponent<SpriteRenderer>().sprite = interactableObject.GetComponent<SpriteRenderer>().sprite;
+			BoxCollider2D monkBox = (BoxCollider2D)GetComponent<BoxCollider2D>();
+			monkBox.size = interactableObject.GetComponent<BoxCollider2D>().size;
         }
     }
 
@@ -238,7 +247,7 @@ public class PlayerController : MonoBehaviour
 
    public void DeathAction()
     {
-        print("you dead");
+		Application.LoadLevel (Application.loadedLevelName);
     }
 
     void OnTriggerExit2D(Collider2D other)

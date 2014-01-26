@@ -23,6 +23,8 @@ public class AnimalController : MonoBehaviour {
 	// for fish we need a waterdeath bool
 	public float strength;
 
+	public float orthoAdj;
+
 
 	public AnimalType animalType = AnimalType.TYPE_NONE;
 
