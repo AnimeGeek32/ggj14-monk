@@ -26,6 +26,7 @@ public class AnimalController : MonoBehaviour {
 
 	public float orthoAdj;
 	public float offset;
+	public float mass;
 
 
 	public AnimalType animalType = AnimalType.TYPE_NONE;

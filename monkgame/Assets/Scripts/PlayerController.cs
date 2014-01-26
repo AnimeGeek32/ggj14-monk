@@ -243,6 +243,7 @@ public class PlayerController : MonoBehaviour
 			GetComponent<SpriteRenderer>().sprite = interactableObject.GetComponent<SpriteRenderer>().sprite;
 			BoxCollider2D monkBox = (BoxCollider2D)GetComponent<BoxCollider2D>();
 			monkBox.size = interactableObject.GetComponent<BoxCollider2D>().size;
+			rigidbody2D.mass = interactableObject.GetComponent<AnimalController>().mass;
 			MainCam.orthographicSize = interactableObject.GetComponent<AnimalController>().orthoAdj;
 			if(interactableObject.GetComponent<AnimalController>().offset != 0){
 				foreach (Transform child in transform)
