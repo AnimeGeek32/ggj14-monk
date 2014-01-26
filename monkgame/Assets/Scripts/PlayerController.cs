@@ -257,7 +257,6 @@ public class PlayerController : MonoBehaviour
 				Vector3 flipScale = transform.localScale;
 				flipScale.x = -1 * transform.localScale.x;
 				transform.localScale = flipScale;
-				facingRight = true;
 			}
         }
     }
