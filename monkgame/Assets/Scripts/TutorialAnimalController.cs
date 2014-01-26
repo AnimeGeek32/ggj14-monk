@@ -5,14 +5,19 @@ public class TutorialAnimalController : MonoBehaviour {
 	public float endOfCounterClockWise = 20f;
 	public float endOfClockWise = -20f;
 	public float rotationInterval = 45f;
+	public GameObject targetBG;
 	public GameObject targetText;
 
 	private float currentRotation = 0.0f;
 	private bool isClockwise = true;
+	private bool isBeingHovered = false;
 
 	// Use this for initialization
 	void Start () {
-		targetText.SetActive(false);
+		if(targetBG != null)
+			targetBG.SetActive(false);
+		if(targetText != null)
+			targetText.SetActive(false);
 	}
 	
 	// Update is called once per frame
@@ -20,15 +25,25 @@ public class TutorialAnimalController : MonoBehaviour {
 		Quaternion newRotation = transform.rotation;
 		Vector3 newAngles = newRotation.eulerAngles;
 
-		Vector2 mouseToWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-		RaycastHit2D hit = Physics2D.Raycast(mouseToWorldPosition, Vector2.zero);
-		if(hit.collider == gameObject.collider2D)
-		{
-			targetText.SetActive(true);
-		}
-		else
-		{
-			targetText.SetActive(false);
+		if(targetBG != null && targetText != null)
+			{
+			Vector2 mouseToWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+			RaycastHit2D hit = Physics2D.Raycast(mouseToWorldPosition, Vector2.zero);
+			if(hit.collider == gameObject.collider2D)
+			{
+				isBeingHovered = true;
+				targetBG.SetActive(true);
+				targetText.SetActive(true);
+			}
+			else
+			{
+				if(isBeingHovered)
+				{
+					targetBG.SetActive(false);
+					isBeingHovered = false;
+					targetText.SetActive(false);
+				}
+			}
 		}
 		
 		if(isClockwise)
@@ -57,9 +72,5 @@ public class TutorialAnimalController : MonoBehaviour {
 		newAngles.z = currentRotation;
 		newRotation.eulerAngles = newAngles;
 		transform.rotation = newRotation;
-	}
-
-	public void RevealText()
-	{
 	}
 }
