@@ -13,8 +13,15 @@ public class AnyKeySceneTransitionController : MonoBehaviour {
 	void Update () {
 		if(Input.anyKey)
 		{
-			GameManager.Instance.Reset();
-			Application.LoadLevel(destinationScene);
+			if(Input.GetKey(KeyCode.Escape))
+			{
+				Application.Quit();
+			}
+			else
+			{
+				GameManager.Instance.Reset();
+				Application.LoadLevel(destinationScene);
+			}
 		}
 	}
 }
