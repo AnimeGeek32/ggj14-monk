@@ -2,37 +2,27 @@
 using System.Collections;
 
 public class crusherLoop : MonoBehaviour {
-	private float width;
-	private float height;
 	private float timer = 0;
-	private Transform startTrans;
-	public GameObject targetPosition;
+	private Vector3 startTrans;
+	public Transform targetPosition;
 	public float speed;
 
 	// Use this for initialization
 	void Start () {
-		width = renderer.bounds.size.x;
-		height = renderer.bounds.size.y;
-		startTrans = transform;
-
+		startTrans = transform.position;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-
-		timer += Time.deltaTime;
-		if(timer < 2){
-			float increTrans = transform.position.y - (height / 20);
-			//targetPosition = new Vector3(transform.position.x, increTrans, 0);
-			transform.position = Vector2.Lerp(transform.position, targetPosition.transform.position, Time.deltaTime * speed);
+		timer += Time.deltaTime * speed;
+		if (timer > 0) {
+			transform.position = Vector3.Lerp(startTrans, targetPosition.position, timer);
+		} else if (timer < 0) {
+			transform.position = Vector3.Lerp(targetPosition.position, startTrans, -timer);
 		}
-		if(timer >= 2){
-			float increTrans = startTrans.position.y + (height / 20);
-			//targetPosition = new Vector3(transform.position.x, increTrans, 0);
-			transform.position = Vector2.Lerp(targetPosition.transform.position, startTrans.position, Time.deltaTime * speed);
-	}
-		if(timer >= 5)
+		if (Mathf.Abs (timer) > 1) {
+			speed = -speed;
 			timer = 0;
-}
-	
+		}
+	}
 }
